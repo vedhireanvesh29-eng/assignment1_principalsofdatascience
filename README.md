@@ -1,27 +1,31 @@
 # Assignment 1 - Principles of Data Science
 
-## Dataset: StudentsPerformance
-- Source: Local copy of the public Kaggle `StudentsPerformance` dataset.
-- Records: 1000 students, 8 columns capturing demographics and test scores.
+## Repository Layout
+- `data/raw/` sources: `frailty_data.csv` for Q1 and `students_performance.csv` for Q2.
+- `data/processed/` pipeline outputs such as `frailty_processed.csv`, ingested/cleaned student tables.
+- `outputs/analysis/` generated visuals and aggregates for the student performance study.
+- `reports/findings.md`: Frailty workflow summary stats and correlation findings.
+- `reports/analysis_report.md`: Narrative walkthrough of the five required student performance visuals.
+- `src/frailty_workflow.py`, `src/students_viz.py`: Reproducible scripts for both assignment questions.
 
-### Columns
-- `gender`: Student gender (`female` or `male`).
-- `race/ethnicity`: Racial or ethnic group label.
-- `parental level of education`: Highest education level attained by a parent.
-- `lunch`: Lunch type (`standard` or `free/reduced`).
-- `test preparation course`: Whether a test preparation course was completed.
-- `math score`: Math exam score (0-100).
-- `reading score`: Reading exam score (0-100).
-- `writing score`: Writing exam score (0-100).
+## Workflows
+### Frailty Workflow (Q1)
+- Ingests `data/raw/frailty_data.csv`, converts units, engineers BMI and age-group features, and encodes the dataset.
+- Persists the processed table to `data/processed/frailty_processed.csv` and refreshes `reports/findings.md` with summary statistics plus the grip-strength correlation.
 
-## Pipeline (ingest -> process -> analyze)
-1. `python src/pipeline.py`
-2. Generated artifacts land in `data/processed/` and `outputs/analysis/`.
+### Student Performance Workflow (Q2)
+- Cleans the Kaggle Students Performance dataset, adds the `overall_avg` feature, and creates five visualizations (V1–V5) saved to `outputs/analysis/`.
+- Updates `reports/analysis_report.md` with 5–8 sentence interpretations for each visual.
 
-## Repository Structure
-- `data/raw/students_performance.csv`: Source dataset for the assignment.
-- `data/processed/`: Ingested and cleaned tables written by the pipeline.
-- `outputs/analysis/`: Aggregated metrics and narrative report from the analysis stage.
-- `src/pipeline.py`: End-to-end pipeline that orchestrates ingest -> process -> analyze.
+## How to Run
+```
+python src/frailty_workflow.py
+python src/students_viz.py
+```
 
-Update or extend the pipeline with notebooks, scripts, or reports to document additional analysis steps and findings.
+Running the scripts recreates processed data, figures, and reports from scratch.
+
+## Outputs
+- `data/processed/frailty_processed.csv`, `reports/findings.md` — frailty ingest -> process -> analyze deliverables.
+- `outputs/analysis/v1_gender_boxplots.png` … `v5_scatter_trend_testprep.png`, plus supporting CSV summaries.
+- `reports/analysis_report.md` — student performance narrative tied to the generated visuals.
